@@ -13,6 +13,7 @@ class Entidad:
             print(f"{objetivo.nombre} ha sido derrotado.")
             self.recibir_experiencia(objetivo.experiencia_otorgada)
             self.recibir_objeto(objetivo.objeto.otorgado)
+            self.recibir_dinero
 
 
     
@@ -43,12 +44,13 @@ class Entidad:
 
 # %%
 class Personaje(Entidad):
-    def __init__(self, nombre, salud, energia, salud_maxima, energia_maxima, ataque_basico,habilidades=[],nivel=1, experiencia=0):
+    def __init__(self, nombre, salud, energia, salud_maxima, energia_maxima, ataque_basico,habilidades=[],nivel=1, experiencia=0,dinero=0):
         super().__init__(nombre, salud, energia, salud_maxima, energia_maxima, ataque_basico)
         self.habilidades = habilidades
         self.nivel = nivel
         self.experiencia = experiencia
         self.inventario = []
+        self.dinero = dinero
 
     def aprender_habilidad(self, habilidad):
         if len(self.habilidades) < 3:  # Verificar si el personaje puede aprender más habilidades
@@ -101,6 +103,9 @@ class Personaje(Entidad):
             self.inventario.remove(pocion)
         else:
             print("no tienes esta pocion en tu inventario")
+
+    def recibir_dinero(self,objetivo):
+        self.dinero += objetivo.dinero_otorgado
                 
 
 
