@@ -89,6 +89,19 @@ class Personaje(Entidad):
             print(f"Has eliminado el objeto: {objeto.nombre}")
         else:
             print(f"No tienes el objeto {objeto.nombre} en tu inventario.")
+    
+    def usar_pocion(self,pocion):
+        if pocion in self.inventario:
+            if pocion.tipo == 'salud':
+                self.salud += self.salud_maxima*(0.20*pocion.nivel)
+                self.salud = min(self.salud, self.salud_maxima)            
+            elif pocion.tipo == 'energia':
+                self.energia_maxima += self.energia_maxima*(0.20*pocion.nivel)
+                self.energia = min(self.energia, self.energia_maxima)
+            self.inventario.remove(pocion)
+        else:
+            print("no tienes esta pocion en tu inventario")
+                
 
 
 
@@ -115,9 +128,9 @@ class Objeto:
         self.descripcion = descripcion
 
 class Pocion(Objeto):
-    def __init__(self, nombre, descripcion, tipo, nivel_curacion):
+    def __init__(self, nombre, descripcion, tipo, nivel):
         super().__init__(nombre, descripcion)
         self.tipo = tipo
-        self.nivel_curacion = nivel_curacion 
+        self.nivel = nivel
 
 # %%
