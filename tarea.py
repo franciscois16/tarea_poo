@@ -110,11 +110,13 @@ class Personaje(Entidad):
 
 
 class Enemigo(Entidad):
-    def __init__(self, nombre, salud, energia, salud_maxima, energia_maxima, ataque_basico, habilidades=[], experiencia_otorgada=20, objeto_otorgado=None):
+    def __init__(self, nombre, salud, energia, salud_maxima, energia_maxima, ataque_basico, habilidades=[], experiencia_otorgada=20, objeto_otorgado=None,dinero_otorgado=None):
         super().__init__(nombre, salud, energia, salud_maxima, energia_maxima, ataque_basico)
         self.habilidades = habilidades
         self.experiencia_otorgada = experiencia_otorgada
         self.objeto_otorgado = objeto_otorgado
+        self.dinero_otorgado = dinero_otorgado
+        
 
 class Habilidad:
     def __init__(self,nombre, ataque,energia_requerida):
@@ -133,4 +135,9 @@ class Pocion(Objeto):
         self.tipo = tipo
         self.nivel = nivel
 
+class tiendas():
+    def __init__(self,inventario_objetos =[], inventario_pociones=[]):
+        self.inventario_objetos = inventario_objetos
+        self.inventario_pociones = inventario_pociones
+    
 # %%
