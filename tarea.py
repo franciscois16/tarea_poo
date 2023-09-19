@@ -93,7 +93,7 @@ class Personaje(Entidad):
 
 
     
-    
+ 
 
 
 class Enemigo(Entidad):
@@ -108,4 +108,16 @@ class Habilidad:
         self.nombre = nombre
         self.ataque = ataque
         self.energia_requerida = energia_requerida
+
+class Objeto:
+    def __init__(self, nombre, descripcion):
+        self.nombre = nombre
+        self.descripcion = descripcion
+
+class Pocion(Objeto):
+    def __init__(self, nombre, descripcion, tipo, nivel_curacion):
+        super().__init__(nombre, descripcion)
+        self.tipo = tipo
+        self.nivel_curacion = nivel_curacion 
+
 # %%
