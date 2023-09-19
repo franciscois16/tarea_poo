@@ -12,6 +12,8 @@ class Entidad:
         if objetivo.salud <= 0:
             print(f"{objetivo.nombre} ha sido derrotado.")
             self.recibir_experiencia(objetivo.experiencia_otorgada)
+            self.recibir_objeto(objetivo.objeto.otorgado)
+
 
     
     def recibir_dano(self,dano):
@@ -41,12 +43,12 @@ class Entidad:
 
 # %%
 class Personaje(Entidad):
-    def __init__(self, nombre, salud, energia, salud_maxima, energia_maxima, ataque_basico,habilidades=[],nivel=1, experiencia=0,invetario=[10]):
+    def __init__(self, nombre, salud, energia, salud_maxima, energia_maxima, ataque_basico,habilidades=[],nivel=1, experiencia=0):
         super().__init__(nombre, salud, energia, salud_maxima, energia_maxima, ataque_basico)
         self.habilidades = habilidades
         self.nivel = nivel
         self.experiencia = experiencia
-        self.inventario = invetario
+        self.inventario = []
 
     def aprender_habilidad(self, habilidad):
         if len(self.habilidades) < 3:  # Verificar si el personaje puede aprender más habilidades
@@ -74,17 +76,32 @@ class Personaje(Entidad):
         self.salud = self.salud_maxima  # Restaura la salud al máximo al subir de nivel
         self.energia = self.energia_maxima  # Restaura la energía al máximo al subir de nivel
 
+    def recibir_objeto(self, objeto):
+        if len(self.inventario) < 10:
+            self.inventario.append(objeto)
+            print(f"Has recibido el objeto: {objeto.nombre}")
+        else:
+            print("El inventario está lleno, no puedes recibir más objetos.")
+
+    def eliminar_objeto(self, objeto):
+        if objeto in self.inventario:
+            self.inventario.remove(objeto)
+            print(f"Has eliminado el objeto: {objeto.nombre}")
+        else:
+            print(f"No tienes el objeto {objeto.nombre} en tu inventario.")
+
+
 
     
     
 
 
 class Enemigo(Entidad):
-    def __init__(self, nombre, salud, energia, salud_maxima, energia_maxima, ataque_basico,habilidades=[],experiencia_otorgada=25):
+    def __init__(self, nombre, salud, energia, salud_maxima, energia_maxima, ataque_basico, habilidades=[], experiencia_otorgada=20, objeto_otorgado="espada sin filo"):
         super().__init__(nombre, salud, energia, salud_maxima, energia_maxima, ataque_basico)
         self.habilidades = habilidades
         self.experiencia_otorgada = experiencia_otorgada
-
+        self.objeto_otorgado = objeto_otorgado
 
 class Habilidad:
     def __init__(self,nombre, ataque,energia_requerida):
