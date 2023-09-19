@@ -28,7 +28,7 @@ class Entidad:
             dano = habilidad.ataque
             objetivo.recibir_dano(dano)
         else:
-            print(f"{self.nombre} no tiene suficiente energía para usar la habilidad '{habilidad.nombre}'.")
+            print(f"{self.nombre} no tiene suficiente energia para usar la habilidad '{habilidad.nombre}'.")
 
     def descansar(self):
         if self.salud <= 0 :
@@ -41,7 +41,7 @@ class Entidad:
             self.energia = min(self.energia, self.energia_maxima)
 
     def recibir_experiencia(self, cantidad):
-        pass  # Este método se usa en Personaje
+        pass  # Este metodo se usa en Personaje
 
 
 # %%
@@ -55,10 +55,10 @@ class Personaje(Entidad):
         self.dinero = dinero
 
     def aprender_habilidad(self, habilidad):
-        if len(self.habilidades) < 3:  # Verificar si el personaje puede aprender más habilidades
+        if len(self.habilidades) < 3:  # Verificar si el personaje puede aprender mas habilidades
             self.habilidades.append(habilidad)
         else:
-            print("El personaje ya tiene el máximo de habilidades (3).")
+            print("El personaje ya tiene el maximo de habilidades (3).")
 
     def olvidar_habilidad(self, habilidad):
         if habilidad in self.habilidades:
@@ -74,18 +74,18 @@ class Personaje(Entidad):
             self.actualizar_atributos()
 
     def actualizar_atributos(self):
-        self.salud_maxima += 10  # aumenta 10 puntos de salud máxima por nivel
-        self.energia_maxima += 5  # aumenta 5 puntos de energía máxima por nivel
-        self.ataque_basico += 2  # aumenta 2 puntos de ataque básico por nivel
-        self.salud = self.salud_maxima  # Restaura la salud al máximo al subir de nivel
-        self.energia = self.energia_maxima  # Restaura la energía al máximo al subir de nivel
+        self.salud_maxima += 10  # aumenta 10 puntos de salud maxima por nivel
+        self.energia_maxima += 5  # aumenta 5 puntos de energia maxima por nivel
+        self.ataque_basico += 2  # aumenta 2 puntos de ataque basico por nivel
+        self.salud = self.salud_maxima  # Restaura la salud al maximo al subir de nivel
+        self.energia = self.energia_maxima  # Restaura la energia al maximo al subir de nivel
 
     def recibir_objeto(self, objetivo):
         if len(self.inventario) < 10:
             self.inventario.append(objetivo.objeto_otorgado)
             print(f"Has recibido el objeto: {objetivo.objeto_otorgado.nombre}")
         else:
-            print("El inventario está lleno, no puedes recibir más objetos.")
+            print("El inventario esta lleno, no puedes recibir mas objetos.")
 
     def eliminar_objeto(self, objeto):
         if objeto in self.inventario:
@@ -108,6 +108,21 @@ class Personaje(Entidad):
 
     def recibir_dinero(self,objetivo):
         self.dinero += objetivo.dinero_otorgado
+
+    def comprar(self, tienda, objeto):
+        if objeto in tienda.inventario_objetos or objeto in tienda.inventario_pociones:
+            if self.dinero >= objeto.precio_tienda:
+                if len(self.inventario) < 10:  # Verificar espacio en el inventario
+                    self.dinero -= objeto.precio_tienda
+                    self.recibir_objeto(objeto)
+                    print(f"Has comprado {objeto.nombre} por {objeto.precio_tienda} monedas.")
+                else:
+                    print("El inventario esta lleno, no puedes recibir mas objetos.")
+            else:
+                print(f"No tienes suficiente dinero para comprar {objeto.nombre}.")
+        else:
+            print(f"{objeto.nombre} no esta disponible en la tienda.")
+
                 
 
 
@@ -132,9 +147,10 @@ class Habilidad:
         self.energia_requerida = energia_requerida
 
 class Objeto:
-    def __init__(self, nombre, descripcion):
+    def __init__(self, nombre, descripcion,precio_tienda):
         self.nombre = nombre
         self.descripcion = descripcion
+        self.precio_tienda = precio_tienda
 
 class Pocion(Objeto):
     def __init__(self, nombre, descripcion, tipo, nivel):
