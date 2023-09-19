@@ -12,8 +12,10 @@ class Entidad:
         if objetivo.salud <= 0:
             print(f"{objetivo.nombre} ha sido derrotado.")
             self.recibir_experiencia(objetivo.experiencia_otorgada)
-            self.recibir_objeto(objetivo.objeto.otorgado)
-            self.recibir_dinero
+            if objetivo.objeto_otorgado is not None:
+                self.recibir_objeto(objetivo.objeto_otorgado)
+            if objetivo.dinero_otorgado is not None:
+                self.recibir_dinero(objetivo)
 
 
     
@@ -141,7 +143,7 @@ class Pocion(Objeto):
         self.nivel = nivel
 
 class tiendas():
-    def __init__(self,inventario_objetos =[], inventario_pociones=[]):
+    def __init__(self, inventario_objetos=[], inventario_pociones=[]):
         self.inventario_objetos = inventario_objetos
         self.inventario_pociones = inventario_pociones
     
