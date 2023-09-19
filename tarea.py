@@ -76,10 +76,10 @@ class Personaje(Entidad):
         self.salud = self.salud_maxima  # Restaura la salud al máximo al subir de nivel
         self.energia = self.energia_maxima  # Restaura la energía al máximo al subir de nivel
 
-    def recibir_objeto(self, objeto):
+    def recibir_objeto(self, objetivo):
         if len(self.inventario) < 10:
-            self.inventario.append(objeto)
-            print(f"Has recibido el objeto: {objeto.nombre}")
+            self.inventario.append(objetivo.objeto_otorgado)
+            print(f"Has recibido el objeto: {objetivo.objeto_otorgado.nombre}")
         else:
             print("El inventario está lleno, no puedes recibir más objetos.")
 
@@ -97,7 +97,7 @@ class Personaje(Entidad):
 
 
 class Enemigo(Entidad):
-    def __init__(self, nombre, salud, energia, salud_maxima, energia_maxima, ataque_basico, habilidades=[], experiencia_otorgada=20, objeto_otorgado="espada sin filo"):
+    def __init__(self, nombre, salud, energia, salud_maxima, energia_maxima, ataque_basico, habilidades=[], experiencia_otorgada=20, objeto_otorgado=None):
         super().__init__(nombre, salud, energia, salud_maxima, energia_maxima, ataque_basico)
         self.habilidades = habilidades
         self.experiencia_otorgada = experiencia_otorgada
