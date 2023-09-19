@@ -1,14 +1,24 @@
 #%%
+import random
+
+
 class Entidad:
-    def __init__(self, nombre, salud, energia,salud_maxima,energia_maxima,ataque_basico):
+    def __init__(self, nombre, salud, energia,salud_maxima,energia_maxima,ataque_basico,prob_critico):
         self.nombre = nombre
         self.salud = salud
         self.energia = energia
         self.salud_maxima = salud_maxima
         self.energia_maxima = energia_maxima
         self.ataque_basico = ataque_basico   
+        self.prob_critico = prob_critico
     def atacar(self, objetivo):
-        objetivo.recibir_dano(self.ataque_basico)
+        critico = self.calcula_critico()
+        if critico:
+            objetivo.recibir_dano(self.ataque_basico*2)
+            print("!!!CRITICO!!!")
+        else:
+            objetivo.recibir_dano(self.ataque_basico)
+        
         if objetivo.salud <= 0:
             print(f"{objetivo.nombre} ha sido derrotado.")
             self.recibir_experiencia(objetivo.experiencia_otorgada)
@@ -42,6 +52,9 @@ class Entidad:
 
     def recibir_experiencia(self, cantidad):
         pass  # Este metodo se usa en Personaje
+
+    def calcula_critico(self):
+        return random.randint(0,100) <= self.prob_critico
 
 
 # %%
