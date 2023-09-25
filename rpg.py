@@ -116,11 +116,11 @@ class Personaje(Entidad):
             if pocion.tipo == 'salud':
                 self.salud += self.salud_maxima*(0.20*pocion.nivel)
                 self.salud = min(self.salud, self.salud_maxima)     
-                print(f"{self.nombre} ha usado {pocion.nombre} y ha recuperado {self.salud_maxima*(0.20*pocion.nivel)} de {pocion.tipo}")       
+                print(f"{self.nombre} ha usado {pocion.nombre} y ha recuperado {pocion.tipo}")       
             elif pocion.tipo == 'energia':
                 self.energia_maxima += self.energia_maxima*(0.20*pocion.nivel)
                 self.energia = min(self.energia, self.energia_maxima)
-                print(f"{self.nombre} ha usado {pocion.nombre} y ha recuperado {self.energia_maxima*(0.20*pocion.nivel)} de {pocion.tipo}")    
+                print(f"{self.nombre} ha usado {pocion.nombre} y ha recuperado {pocion.tipo}")    
             self.inventario.remove(pocion)
         else:
             print("no tienes esta pocion en tu inventario")
